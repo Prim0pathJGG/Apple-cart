@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AppleCart - Products</title>
+
+    <!-- SCSS for development (Vite handles this) -->
+    <link rel="stylesheet" href="/src/scss/style.scss">
+
+    <!-- Production CSS (Vite builds this into /dist) -->
+    <link rel="stylesheet" href="/dist/style.css">
+
+    <!-- Font Awesome 6.6.0 (Official CDN) -->
+    <link 
+        rel="stylesheet" 
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" 
+        integrity="sha512-bxK8YkP82LPgAvFp8ZUBKbjDg7sWXBJgp7wa9u0edPFsKnzGWxZmf0RduCMsZ/HXXIQK5vCk1vZ1tcHTfbv7Wg==" 
+        crossorigin="anonymous" 
+        referrerpolicy="no-referrer"
+    />
+</head>
+
+<body>
+
+<!-- Header -->
+<header class="header">
+    <div class="header__content">
+        <h1 class="header__title">AppleCart</h1>
+
+        <div class="header__checkout">
+            <a href="#" class="header__checkout-link">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="header__checkout-count">0</span>
+            </a>
+        </div>
+
+        <div class="header__cart-preview">
+                <ul class="header__cart-items">
+                    <!-- Cart items injected dynamically -->
+                </ul>
+
+                <p class="header__cart-total">
+                    Total: $<span class="header__cart-total-amount">0.00</span>
+                </p>
+
+                <button class="header__clear-cart-button">
+                    <i class="fas fa-trash"></i> Clear Basket
+                </button>
+
+                <a href="#" class="header__view-cart-button">
+                    <i class="fas fa-shopping-cart"></i> View Cart
+                </a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Store Section -->
+<main class="store">
+    <section class="store__products-list">
+        <!-- Products injected dynamically -->
+    </section>
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+    <p>&copy; <span id="year"></span> Apple Store. All rights reserved.</p>
+</footer>
+
+<!-- JavaScript Modules -->
+<script type="module" src="/src/data/products.js"></script>
+<script type="module" src="/src/js/script.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        document.getElementById("year").textContent = new Date().getFullYear();
+    });
+</script>
+
+<div class="toast-container"></div>
+
+</body>
+</html>
