@@ -1,6 +1,7 @@
 import {products} from '../data/products.js';
 document.addEventListener("DOMContentLoaded", function() {
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    
     const checkoutCountElement =document.querySelector(".header__checkout-count");
     const cartPreviewElement =document.querySelector(".header__cart-preview");
     const cartItemsElement =document.querySelector(".header__cart-items");
@@ -30,31 +31,34 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function attachAddToCartListeners() {
-        const addToCartButtons = document.querySelectorAll('.store__add-to-cart');
-        addToCartButtons.forEach(button => {
+        document.querySelectorAll(".store__add-to-cart").forEach(button => {
             button.addEventListener('click', function() {
-                const productElement = this.closest('.store__product');
-                const productId = parseInt(productElement.getAttribute('data-id'));
-                const product = products.find(p => p.id === productId);
+                const productElement = this.parentElement;
+                const productId = productElement.getAttribute("data-id");
+                const productName = productElement.querySelector(".store__product-name").textContent;
+                const productPrice = parseFloat(productElement.querySelector(".store__product-price").textContent.replace('$', ''));
+                const productImage = productElement.querySelector(".store__product-image").src;
+
+                const existingProduct = cart.find(item => item.id === productId);
                 
-                const cartItem = cart.find(item => item.id === productId);
-                if (cartItem) {
-                    cartItem.quantity++;
+            
+                if (existingProduct) {
+                    existingProduct.quantity++;
                 } else {
-                    cart.push({...product, quantity: 1});
+                    const product = {
+                        id: productId,
+                        name: productName,
+                        price: productPrice,
+                        image: productImage,
+                        quantity: 1
+                    };
+                    cart.push(product);                   
                 }
-                
-                localStorage.setItem('cart', JSON.stringify(cart));
-                updateCartDisplay();
+
+                updateCart();
+                showToast(`${productName} added to basket`,'success');
             });
         });
-    }
-
-    function updateCartDisplay() {
-        checkoutCountElement.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
-        cartTotalElement.textContent = '$' + cart.reduce((sum, item) => sum + item.price * item.quantity, 0).toFixed(2);
-    }
-    
-    renderProducts(products);
+    }             
                  
 });
