@@ -2,18 +2,22 @@
 .store {
   padding: 7.5rem 2rem 10rem 2rem;
   background-color: #f8f8f8;
-  
+
   &__product-list {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 1rem;
+    max-width: 1200px;   // moved up from the orphaned rule below
+    margin: 0 auto;      // moved up from the orphaned rule below
   }
-  
 
   &__product {
+    position: relative;  // moved up from the orphaned rule below
     background-color: white;
     border: 1px solid #ddd;
+    border-radius: 8px;  // moved up from the orphaned rule below
     padding: 1rem;
+    padding-bottom: 60px; // moved up from the orphaned rule below
     text-align: center;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 
@@ -39,10 +43,8 @@
       font-size: 0.9rem;
       margin: 0.5rem 0;
     }
-   
-  
-  
-    .store__add-to-cart {
+
+    &__add-to-cart {         // changed from .store__add-to-cart to &__add-to-cart
       background: #262626;
       position: absolute;
       bottom: 20px;
@@ -62,7 +64,6 @@
     }
   }
 }
-
 
   
  
